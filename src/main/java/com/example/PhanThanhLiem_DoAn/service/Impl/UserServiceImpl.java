@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("thanhliemphan1997@gmail.com", senderName);
+        helper.setFrom("truongta.mt34@gmail.com", senderName);
         helper.setTo(user.getUsername());
         helper.setSubject(subject);
 

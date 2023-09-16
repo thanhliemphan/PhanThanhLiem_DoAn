@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<!-- Basic -->
+
+<head th:replace="~{fragments::head}">
+
+</head>
+
+
+<body>
+<div th:replace="~{fragments::main-top}">
+</div>
+<!-- End Main Top -->
+
+<!-- Start Main Top -->
+<header th:replace="~{fragments::main-header}">
+</header>
+<!-- End Main Top -->
+
+<!-- Start Top Search -->
+<div th:replace="~{fragments::top-search}">
+</div>
+<!-- End Top Search -->
+
+    <!-- End All Title Box -->
+    <div class="mainDiv">
+
+        <div class="cardStyle">
+          <div class="text alert alert-warning" th:if="${error}">
+            <p th:text="${error}"></p>
+          </div>
+          <form th:action="@{/customer/update-info}" method="put" name="signupForm" id="signupForm" th:object="${user}">
+            
+            <img src="" id="signupLogo"/>
+            
+            <h2 class="formTitle">
+              <i>Personal Information</i> 
+            </h2>
+
+          <div class="inputDiv">
+            <label class="inputLabel" for="firstName"> First name * </label>
+            <input type="text" th:field="*{firstName}" id="firstName" name="firstName" readonly>
+          </div>
+            
+          <div class="inputDiv">
+            <label class="inputLabel" for="lastName">Last name *</label>
+            <input type="text" th:field="*{lastName}" id="lastName" name="lastName" readonly>
+          </div>
+            
+          <div class="inputDiv">
+            <label class="inputLabel" for="username">User name *</label>
+            <input type="text" th:field="*{username}" id="username" name="username" readonly>
+          </div>
+          <div class="inputDiv">
+            <label class="inputLabel" for="number_phone">Phone number *</label>
+            <input type="number" th:field="*{number_phone}" id="number_phone" name="number_phone">
+          </div>
+
+          <div class="inputDiv">
+            <label class="inputLabel" for="address">Address *</label>
+            <input type="text" th:field="*{address}" id="address" name="address">
+          </div>
+
+          <div class="inputDiv">
+            <label class="inputLabel" for="city">City *</label>
+            <input type="text" th:field="*{city}" id="city" name="city">
+          </div>
+
+          <div class="inputDiv">
+            <label class="inputLabel" for="country">Country *</label>
+            <input type="text" th:field="*{country}" id="country" name="country">
+          </div>
+          
+          <div class="buttonWrapper">
+            <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
+              <span>Save</span>
+            </button>
+          </div>
+            
+        </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+      <span>Project SE</span>
+    </div>
+
+    
+    <!-- End copyright  -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+
+<div th:replace="~{fragments::script}"></div>
+</body>
+
+</html>

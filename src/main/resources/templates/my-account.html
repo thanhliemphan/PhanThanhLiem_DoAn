@@ -1,0 +1,96 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<!-- Basic -->
+
+<head th:replace="~{fragments::head}">
+
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<!-- Start Main Top -->
+<div th:replace="~{fragments::main-top}">
+</div>
+<!-- End Main Top -->
+
+
+<!-- Start Main Top -->
+<header class="main-top">
+    <div th:replace="~{fragments::main-header}"></div>
+    <!-- Start Navigation -->
+
+</header>
+<!-- End Main Top -->
+
+<!-- Start Top Search -->
+<div th:replace="~{fragments::top-search}">
+</div>
+<!-- End Top Search -->
+
+    <!-- Start My Account  -->
+    <div class="container">
+        <div class="row my-2">
+                <div class="col-lg-8 order-lg-2">
+                    <div class="tab-content py-4">
+                        <div class="tab-pane active" id="profile">
+                            <h1><b>Your Profile</b></h1>
+                            <h2><span style="font-size: medium;"></span></h2>
+                            <h4><span>Email: </span><p th:text="${user.username}" style="display: inline;"></p></h4>
+                            <h4><span>Phone: </span><p th:text="${user.number_phone}" style="display: inline;"></p></h4>
+                            <h4><span>Address: </span><p th:text="${user.address + ' ' + user.city + ' ' + user.country}" style="display: inline;"></p></h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="my-account-box-main">
+            <div class="container">
+                <div class="my-account-page">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a th:href="@{order}"> <i class="fa fa-gift"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Your Orders</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a th:href="@{account}"><i class="fa fa-lock"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Login &amp; security</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End My Account -->
+
+
+
+<!-- Start Footer  -->
+<footer th:replace="~{fragments::footer}">
+
+</footer>
+
+
+<div th:replace="~{fragments::script}"></div>
+</body>
+
+</html>

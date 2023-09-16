@@ -1,0 +1,17 @@
+/* Đảm bảo các thành phần con trong .login-box có không gian giữa chúng */
+.login-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Tạo khoảng cách giữa các liên kết trong header__top__links */
+.header__top__links {
+    display: flex;
+    gap: 10px;
+}
+
+/* Đặt chiều cao tối thiểu cho header__top__left để tránh chữ bị chồng lên nhau */
+.header__top__left {
+    min-height: 30px;
+}

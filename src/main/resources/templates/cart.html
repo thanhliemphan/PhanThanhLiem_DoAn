@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<!-- Basic -->
+
+<head th:replace="~{fragments::head}">
+
+</head>
+
+
+<body>
+<div th:replace="~{fragments::main-top}">
+</div>
+<!-- End Main Top -->
+<!-- Start Main Top -->
+<header th:replace="~{fragments::main-header}">
+</header>
+<!-- End Main Top -->
+<!-- Start Top Search -->
+<div th:replace="~{fragments::top-search}">
+</div>
+<!-- End Top Search -->
+
+
+    <!-- Start Cart  -->
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="text alert alert-warning" th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div th:if="${msg}" class="text-center alert-warning">
+                        <p th:text="${msg}"></p>
+                    </div>
+                    <div class="table-main table-responsive" th:if="${msg == null}">
+                        <div th:if="${insufficientStockMessages}" class="alert alert-danger">
+                            <h4 class="alert-heading">Some products have insufficient stock:</h4>
+                            <ul>
+                                <li th:each="message : ${insufficientStockMessages}" th:text="${message}"></li>
+                            </ul>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Images</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cartItem : ${shoppingCart.cartItems}" >
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+									<img class="img-fluid" th:src="'data:image/jpeg;base64,' + ${cartItem.product.image}" alt="" />
+								</a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <p th:text="${cartItem.product.name}"></p>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p th:text="'$'+${cartItem.unitPrice}"></p>
+                                    </td>
+                                    <form th:action="@{/update-cart}" method="post">
+                                        <input type="hidden" name="id" th:value="${cartItem.product.id}">
+                                        <!-- Thêm một ID duy nhất cho mỗi hàng sản phẩm -->
+                                        <td class="quantity-box">
+                                            <input type="number" name="quantity" th:value="${cartItem.quantity}" size="4"
+                                                   value="1" min="0" step="1"
+                                                   class="c-input-text qty text" data-product-id="${cartItem.product.id}">
+                                        </td>
+                                        <td class="total-pr">
+                                            <p id="totalPrice-${cartItem.product.id}" th:text="'$' +${cartItem.unitPrice * cartItem.quantity}"></p>
+                                        </td>
+                                        <td class="remove-pr">
+                                            <button type="submit" name="action" value="update" title="Update"
+                                                    class="btn btn-primary">
+                                                Update
+                                            </button>
+                                            <button type="submit" name="action" value="delete" title="Delete"
+                                                    class="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-5" >
+                <div class="col-lg-8 col-sm-12"></div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="order-box">
+                        <h3>Order summary</h3>
+                        <div class="d-flex">
+                            <h4>Sub Total</h4>
+                            <div class="ml-auto font-weight-bold" th:text="'$' + ${subTotal}"></div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>Discount</h4>
+                            <div class="ml-auto font-weight-bold"> $0 </div>
+                        </div>
+                        <hr class="my-1">
+                        <div class="d-flex">
+                            <h4>Tax</h4>
+                            <div class="ml-auto font-weight-bold"> $2 </div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>Shipping Cost</h4>
+                            <div class="ml-auto font-weight-bold"> Free </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex gr-total">
+                            <h5>Grand Total</h5>
+                            <div class="ml-auto h5" th:text="'$' + (${subTotal} + 2)"></div>
+                        </div>
+                        <hr> </div>
+                </div>
+                <div class="col-12 d-flex shopping-box"><a th:href="@{/customer/check-out}" class="ml-auto btn hvr-hover">Checkout</a> </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Cart -->
+</div>
+
+<!-- End Feed  -->
+
+
+<!-- Start Footer  -->
+<footer th:replace="~{fragments::footer}">
+
+</footer>
+
+
+<div th:replace="~{fragments::script}"></div>
+</body>
+
+</html>
