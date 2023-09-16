@@ -1,6 +1,6 @@
 package com.example.PhanThanhLiem_DoAn.service.Impl;
 
-import com.example.PhanThanhLiem_DoAn.Dto.UserDto;
+import com.example.PhanThanhLiem_DoAn.dto.UserDto;
 import com.example.PhanThanhLiem_DoAn.model.Role;
 import com.example.PhanThanhLiem_DoAn.model.User;
 import com.example.PhanThanhLiem_DoAn.repository.RoleRepository;
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("truongta.mt34@gmail.com", senderName);
+        helper.setFrom("thanhliemphan1997@gmail.com", senderName);
         helper.setTo(user.getUsername());
         helper.setSubject(subject);
 

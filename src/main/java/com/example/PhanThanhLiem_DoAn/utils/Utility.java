@@ -1,4 +1,4 @@
-package com.example.PhanThanhLiem_DoAn.Utils;
+package com.example.PhanThanhLiem_DoAn.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 

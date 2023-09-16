@@ -1,7 +1,7 @@
 package com.example.PhanThanhLiem_DoAn.controller;
 
-import com.example.PhanThanhLiem_DoAn.Dto.UserDto;
-import com.example.PhanThanhLiem_DoAn.Utils.Utility;
+import com.example.PhanThanhLiem_DoAn.dto.UserDto;
+import com.example.PhanThanhLiem_DoAn.utils.Utility;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import com.example.PhanThanhLiem_DoAn.model.User;

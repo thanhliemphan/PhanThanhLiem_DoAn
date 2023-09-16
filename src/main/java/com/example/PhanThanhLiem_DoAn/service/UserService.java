@@ -1,6 +1,6 @@
 package com.example.PhanThanhLiem_DoAn.service;
 
-import com.example.PhanThanhLiem_DoAn.Dto.UserDto;
+import com.example.PhanThanhLiem_DoAn.dto.UserDto;
 import jakarta.mail.MessagingException;
 import com.example.PhanThanhLiem_DoAn.model.User;
 
