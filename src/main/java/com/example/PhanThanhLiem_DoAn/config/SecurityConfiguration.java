@@ -38,8 +38,8 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/admin/categories", "/admin/**").hasRole("ROLE_ADMIN")
-                .requestMatchers("/customer/**").hasRole("ROLE_CUSTOMER")
+                .requestMatchers("/admin/categories", "/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/customer/**").hasAuthority("ROLE_CUSTOMER")
                 .requestMatchers("/**", "/static/**", "/js/**", "/cs/**", "/create-payment", "/execute-payment/**").permitAll()
                 .anyRequest().authenticated())
                 .formLogin((form) -> form
