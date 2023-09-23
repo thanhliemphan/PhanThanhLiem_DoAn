@@ -100,12 +100,17 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6">
+                                            <form th:action="@{/add-to-cart}" method="post" >
                                             <div class="why-text full-width">
                                                 <h4 th:text="${productView.name}"></h4>
                                                 <h5 th:text="'$' + ${productView.costPrice}"></h5>
                                                 <p th:text="${productView.description}"></p>
-                                                <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                <input type="hidden" th:value="${productView.id}" name="id">
+                                                <button type="submit" class="btn hvr-hover">
+                                                    Add to Cart
+                                                </button>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
