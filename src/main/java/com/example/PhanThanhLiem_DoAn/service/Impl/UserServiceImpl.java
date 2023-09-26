@@ -91,9 +91,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verify(String verificationCode) {
-        if (verificationCode == null || verificationCode.isEmpty()) {
-            return false;
-        }
 
         User user = userRepository.findByVerificationCode(verificationCode);
 

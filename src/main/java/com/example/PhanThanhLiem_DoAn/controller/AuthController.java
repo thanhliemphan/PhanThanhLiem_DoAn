@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.PhanThanhLiem_DoAn.service.UserService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @Controller
 @RequiredArgsConstructor
@@ -93,7 +94,7 @@ public class AuthController {
         return "register";
     }
     @GetMapping("/verify")
-    public String verifyUser(@Param("code") String code, Model model) {
+    public String verifyUser(@Param("code") @NotBlank String code, Model model) {
         if (userService.verify(code)) {
             model.addAttribute("verificationSuccess", "Verification successful!");
             return "redirect:/login";
