@@ -23,7 +23,7 @@ public interface ProductService {
     List<Product> getAllProducts();
     List<Product> listViewProduct();
     Product getProductById(Long id);
-    List<Product> getRelacedProducts(Long categoryId);
+    List<Product> getRelatedProducts(Long categoryId);
     List<Product> getProductsInCategory(Long categoryId);
     List<ProductDto> filterHighPrice();
     List<ProductDto> filterLowPrice();

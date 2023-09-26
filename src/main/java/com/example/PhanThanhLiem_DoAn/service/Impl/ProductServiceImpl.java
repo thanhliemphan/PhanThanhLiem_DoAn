@@ -196,7 +196,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getRelacedProducts(Long categoryId) {
+    public List<Product> getRelatedProducts(Long categoryId) {
         return productRepository.getRelatedProducts(categoryId);
     }
 
