@@ -7,12 +7,10 @@ import com.example.PhanThanhLiem_DoAn.model.Product;
 import com.example.PhanThanhLiem_DoAn.service.CategoryService;
 import com.example.PhanThanhLiem_DoAn.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -61,7 +59,6 @@ public class ProductHomeController {
     }
     @RequestMapping(value = "high-price", method = RequestMethod.GET)
     public String filterHighPrice(Model model){
-
         List<CategoryDto> categoryDtoList = categoryService.getCategoryAndProduct();
         List<ProductDto> products = productService.filterHighPrice();
         List<ProductDto> listView = productService.listViewProducts();
@@ -80,8 +77,8 @@ public class ProductHomeController {
         model.addAttribute("products", products);
         return "shop";
     }
-    @RequestMapping(value = "/search-product", method = RequestMethod.GET)
-    public String searchProducts(@RequestParam("keyword") String keyword, Model model){
+    @GetMapping(value = "/search-product")
+    public String searchProducts(@Param("keyword") String keyword, Model model){
         List<CategoryDto> categoryDtos = categoryService.getCategoryAndProduct();
         List<ProductDto> productDtos = productService.searchProducts(keyword);
         List<ProductDto> listView = productService.listViewProducts();

@@ -39,7 +39,7 @@
                                 <span>Sort by </span>
                                 <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD"  th:fragment="nav-product" onchange="location = this.value;">
                                     <option data-display="Select">Nothing</option>
-                                    <option value="http://localhost:8080/high-price">High Price → Low Price</option>
+                                    <option th:value="@{/high-price}">High Price → Low Price</option>
                                     <option value="http://localhost:8080/low-price">Low Price → High Price</option>
                                     <option value="4">Best Selling</option>
                                 </select>
