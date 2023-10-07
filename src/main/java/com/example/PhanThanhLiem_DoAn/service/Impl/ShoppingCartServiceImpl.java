@@ -35,7 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         CartItem cartItem = find(cartItemList, productDto.getId());
         Product product = transfer(productDto);
 
-        double unitPrice = productDto.getCostPrice();
+        double unitPrice = productDto.getPrice();
 
         int itemQuantity = 0;
         if (cartItemList == null) {
@@ -46,7 +46,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartItem.setCart(shoppingCart);
                 cartItem.setQuantity(quantity);
                 cartItem.setUnitPrice(unitPrice);
-                cartItem.setCart(shoppingCart);
                 cartItemList.add(cartItem);
                 cartItemRepository.save(cartItem);
             } else {
@@ -61,7 +60,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartItem.setCart(shoppingCart);
                 cartItem.setQuantity(quantity);
                 cartItem.setUnitPrice(unitPrice);
-                cartItem.setCart(shoppingCart);
                 cartItemList.add(cartItem);
                 cartItemRepository.save(cartItem);
             } else {

@@ -54,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDescription(productDto.getDescription());
             product.setCurrentQuantity(productDto.getCurrentQuantity());
             product.setCostPrice(productDto.getCostPrice());
+            product.setSalePrice(productDto.getSalePrice());
             product.setCategory(productDto.getCategory());
             product.set_deleted(false);
             product.set_activated(true);
@@ -116,6 +117,7 @@ public class ProductServiceImpl implements ProductService {
         productDto.setDescription(product.getDescription());
         productDto.setCostPrice(product.getCostPrice());
         productDto.setSalePrice(product.getSalePrice());
+        productDto.setPrice(product.getCostPrice()*(1-(product.getSalePrice()/100)));
         productDto.setCurrentQuantity(product.getCurrentQuantity());
         productDto.setCategory(product.getCategory());
         productDto.setImage(product.getImage());
@@ -169,6 +171,7 @@ public class ProductServiceImpl implements ProductService {
             productDto.setDescription(product.getDescription());
             productDto.setCostPrice(product.getCostPrice());
             productDto.setSalePrice(product.getSalePrice());
+            productDto.setPrice(product.getCostPrice()*(1-(product.getSalePrice()/100)));
             productDto.setCurrentQuantity(product.getCurrentQuantity());
             productDto.setCategory(product.getCategory());
             productDto.setImage(product.getImage());
