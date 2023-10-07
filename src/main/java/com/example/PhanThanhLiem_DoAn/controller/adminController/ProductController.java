@@ -51,7 +51,7 @@ public class ProductController {
         model.addAttribute("products",products);
         return "admin/products";
     }
-    @RequestMapping(value = "search-result/{pageNo}",method = RequestMethod.GET)
+    @RequestMapping(value = "admin/products/search-result/{pageNo}",method = RequestMethod.GET)
     public String searchProducts(@PathVariable("pageNo") int pageNo,
                                  @RequestParam("keyword") String keyword,
                                  Model model, Principal principal){
@@ -59,11 +59,12 @@ public class ProductController {
             return "redirect:/login";
         }
         Page<ProductDto> products = productService.searchProducts(pageNo,keyword);
-        model.addAttribute("tiltl", "Search products");
+        model.addAttribute("title", "Search Products");
         model.addAttribute("products", products);
         model.addAttribute("size", products.getSize());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("keyword","?keyword="+keyword);
         return "admin/result-products";
     }
     @RequestMapping(value = "/add-product", method = RequestMethod.GET)
