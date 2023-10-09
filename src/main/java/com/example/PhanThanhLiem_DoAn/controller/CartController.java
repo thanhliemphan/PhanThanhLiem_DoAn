@@ -57,7 +57,7 @@ public class CartController {
             return "redirect:/login";
         }else {
             String username = principal.getName();
-            User user = userService.findByUsername(username);
+//            User user = userService.findByUsername(username);
             ShoppingCart shoppingCart = shoppingCartService.addItemToCart(productDto, quantity, username);
             session.setAttribute("totalItems", shoppingCart.getTotalItem());
             model.addAttribute("shoppingCart", shoppingCart);

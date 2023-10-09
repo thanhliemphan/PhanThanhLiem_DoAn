@@ -2,16 +2,19 @@ package com.example.PhanThanhLiem_DoAn.controller;
 
 import com.example.PhanThanhLiem_DoAn.dto.CategoryDto;
 import com.example.PhanThanhLiem_DoAn.dto.ProductDto;
-import com.example.PhanThanhLiem_DoAn.model.Category;
-import com.example.PhanThanhLiem_DoAn.model.Product;
+import com.example.PhanThanhLiem_DoAn.model.*;
 import com.example.PhanThanhLiem_DoAn.service.CategoryService;
 import com.example.PhanThanhLiem_DoAn.service.ProductService;
+import com.example.PhanThanhLiem_DoAn.service.ReviewService;
+import com.example.PhanThanhLiem_DoAn.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,6 +23,11 @@ public class ProductHomeController {
     ProductService productService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ReviewService reviewService;
+
+    @Autowired
+    UserService userService;
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menu(Model model){
         List<Category> categories = categoryService.findAllByActivatedTrue();
@@ -45,6 +53,7 @@ public class ProductHomeController {
         List<Product> products = productService.getRelatedProducts(categoryId);
         model.addAttribute("product", product);
         model.addAttribute("products", products);
+        model.addAttribute("review", new Review());
         return "product-detail";
     }
     @RequestMapping(value = "/products-in-category/{id}",method = RequestMethod.GET)
@@ -89,4 +98,18 @@ public class ProductHomeController {
         model.addAttribute("products", productDtos);
         return "shop";
     }
+    @PostMapping(value = "/product/sendReview")
+    public String sendReview(@ModelAttribute("review")Review review,
+                             @RequestParam("id") Long productId,
+                             Principal principal){
+        ProductDto productDto = productService.getById(productId);
+        if (principal == null){
+            return "redirect:/login";
+        }else {
+            String username = principal.getName();
+            reviewService.addNewReview(review, productDto, username);
+        }
+        return "redirect:/find-product/"+productId;
+    }
+
 }
