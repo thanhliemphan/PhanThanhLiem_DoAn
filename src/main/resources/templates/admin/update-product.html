@@ -89,7 +89,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="image">PRODUCT IMAGE</label>
                                     <div class="col-md-4">
-                                        <img class = "my-product-image" style="height: 40px; width: 40px;" alt=""  th:src="'data:image/jpeg;base64,' + ${image}">
+                                        <img class = "my-product-image" style="height: 40px; width: 40px;" alt=""  th:src="'data:image/jpeg;base64,' + ${productDto.image}">
                                         <input id="image" name="imageProduct" class="input-file" type="file">
                                     </div>
                                 </div>

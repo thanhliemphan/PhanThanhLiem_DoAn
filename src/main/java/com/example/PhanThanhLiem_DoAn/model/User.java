@@ -51,4 +51,6 @@ public class User {
     private List<Role> roles;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PaymentInfo> paymentHistories;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }

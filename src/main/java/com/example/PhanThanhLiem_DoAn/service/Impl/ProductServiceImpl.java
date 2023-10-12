@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getById(Long id) {
-        Product product = productRepository.getById(id);
+        Product product = productRepository.findById(id).orElseThrow();
         ProductDto productDto = new ProductDto();
         productDto.setId(product.getId());
         productDto.setName(product.getName());
@@ -195,7 +195,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.getById(id);
+        return productRepository.findById(id).orElseThrow();
     }
 
     @Override

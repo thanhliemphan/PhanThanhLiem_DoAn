@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -24,11 +25,18 @@ public class ReviewServiceImpl implements ReviewService {
     public void addNewReview(Review review, ProductDto productDto, String username) {
         User user = userService.findByUsername(username);
         Product product = transfer(productDto);
-        review.setProducts(Arrays.asList(product));
+        review.setProduct(product);
         review.setUser(user);
         review.setCreatedTime(new Date());
         reviewRepository.save(review);
     }
+
+    @Override
+    public double getAvgRating(Long id) {
+        double avgRating = reviewRepository.getAvgRatingByProduct(id);
+        return avgRating;
+    }
+
     private Product transfer(ProductDto productDto) {
         Product product = new Product();
         product.setId(productDto.getId());
@@ -43,4 +51,5 @@ public class ReviewServiceImpl implements ReviewService {
         product.setCategory(productDto.getCategory());
         return product;
     }
+
 }

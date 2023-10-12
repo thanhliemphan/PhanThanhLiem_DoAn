@@ -71,7 +71,21 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="container">
+        <div class="app">
+            <div class="rating_scorecard">
+                <div class="rating_average">
+                    <h1 th:text ="${avgRating}"></h1>
+<!--                    <div class="star_outer">-->
+<!--                        <div class="star_inner"></div>-->
+<!--                    </div>-->
+<!--                    <p></p>-->
+                </div>
+                <div class="rating_progress">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="review-rating" style="margin-bottom:30px;">
         <div class="container">
             <h3>REVIEW AND RATING</h3>
@@ -100,8 +114,22 @@
             </form>
         </div>
     </div>
-    <div class="">
+    <div class="container">
+        <div class="review_result" th:each="r : ${reviews}">
+            <div class="customer_avatar"><img th:src="@{/img/avatar.jpg}" alt="customer_avatar"></div>
+            <div class="customer_review_rating">
+                <div class="customer_name">
+                    <p th:text="${r.user.username}"></p>
+                    <div class="star_outer" th:each="i : ${#numbers.sequence(1, r.rating)} ">
+                        <span class="star_gold">&#9733;</span>
+                    </div>
+                </div>
+                <div class="customer_review">
+                    <p th:text="${r.comment}"></p>
+                </div>
 
+            </div>
+        </div>
     </div>
     <!-- End Cart -->
 <!-- Start Footer  -->
@@ -111,6 +139,54 @@
 <!-- ALL JS FILES -->
 <div th:replace="~{fragments::script}"></div>
 <script th:src="@{/js/rating.js}"></script>
+<!--<script>-->
+<!--        let data = [-->
+<!--            {-->
+<!--                'star' : 5,-->
+<!--                'count' : 2570,-->
+<!--            },-->
+<!--            {-->
+<!--                'star' : 4,-->
+<!--                'count' : 300,-->
+<!--            },-->
+<!--            {-->
+<!--                'star' : 3,-->
+<!--                'count' : 150,-->
+<!--            },-->
+<!--            {-->
+<!--                'star' : 2,-->
+<!--                'count' : 100,-->
+<!--            },-->
+<!--            {-->
+<!--                'star' : 1,-->
+<!--                'count' : 50,-->
+<!--            },-->
+<!--        ]-->
+<!--        let total_rating = 0,-->
+<!--        rating_base_on_stars = 0;-->
+
+<!--        data.forEach(rating_scorecard =>{-->
+<!--            total_rating += rating_scorecard.count;-->
+<!--            rating_base_on_stars += rating_scorecard.count * rating_scorecard.star;-->
+<!--        });-->
+<!--        data.forEach(rating_scorecard => {-->
+<!--            let rating_progress = `-->
+<!--            <div class="rating_progress-value">-->
+<!--                    <p>${rating_scorecard.star} <span class="star">&#9733;</span></p>-->
+<!--                    <div class="progress">-->
+<!--                        <div class="bar" style="width: ${(rating_scorecard.count / total_rating) * 100}%"></div>-->
+<!--                    </div>-->
+<!--                    <p>${rating_scorecard.count.toLocaleString()}</p>-->
+<!--            </div>-->
+<!--            `;-->
+
+<!--            document.querySelector('.rating_progress').innerHTML += rating_progress;-->
+<!--        });-->
+<!--        let rating_average = (rating_base_on_stars / total_rating).toFixed(1);-->
+<!--        document.querySelector('.rating_average h1').innerHTML = rating_average;-->
+<!--        document.querySelector('.rating_average p').innerHTML = total_rating;-->
+<!--        document.querySelector('.star_inner').style.width = (rating_average / 5) * 100 + "%";-->
+<!--    </script>-->
 </body>
 
 </html>

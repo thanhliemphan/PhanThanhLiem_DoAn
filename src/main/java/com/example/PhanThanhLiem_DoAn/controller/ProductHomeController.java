@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,7 @@ public class ProductHomeController {
 
     @Autowired
     UserService userService;
+    private static final DecimalFormat df = new DecimalFormat("0.0");
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menu(Model model){
         List<Category> categories = categoryService.findAllByActivatedTrue();
@@ -44,15 +46,18 @@ public class ProductHomeController {
         model.addAttribute("categories", categoryDtoList);
         model.addAttribute("viewProduct", listViewProduct);
         model.addAttribute("products", products);
+        model.addAttribute("product", new Product());
         return "shop";
     }
     @RequestMapping(value = "/find-product/{id}", method = RequestMethod.GET)
     public String findProduct(@PathVariable("id") Long id, Model model){
         Product product = productService.getProductById(id);
-        Long categoryId = product.getCategory().getId();
-        List<Product> products = productService.getRelatedProducts(categoryId);
+//        Long categoryId = product.getCategory().getId();
+        List<Review> reviews = product.getReviews();
+        double avgRating = reviewService.getAvgRating(id);
+        model.addAttribute("avgRating",df.format(avgRating));
         model.addAttribute("product", product);
-        model.addAttribute("products", products);
+        model.addAttribute("reviews", reviews);
         model.addAttribute("review", new Review());
         return "product-detail";
     }

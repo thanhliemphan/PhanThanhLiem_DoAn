@@ -10,7 +10,7 @@ import java.nio.file.StandardCopyOption;
 
 @Component
 public class ImageUpload {
-    private final String UPLOAD_FOLDER = "C:\\Users\\Admin\\DoAn_TaTruong\\src\\main\\resources\\static\\img";
+    private final String UPLOAD_FOLDER = "C:\\Users\\Acer\\IdeaProjects\\PhanThanhLiem_DoAn\\src\\main\\resources\\static\\img";
     public boolean uploadFile(MultipartFile file) {
         boolean isUpload = false;
         try {

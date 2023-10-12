@@ -1,11 +1,12 @@
 package com.example.PhanThanhLiem_DoAn.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.List;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,5 +29,6 @@ public class Product {
     private Category category;
     private boolean is_activated;
     private boolean is_deleted;
-
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews;
 }

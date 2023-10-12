@@ -83,6 +83,7 @@ public class ProductController {
                               @RequestParam("imageProduct") MultipartFile imageProduct,
                               RedirectAttributes redirectAttributes) {
         try {
+//            product.setPrice(product.getCostPrice()*(1-(product.getSalePrice()/100)));
             productService.save(imageProduct, product);
             redirectAttributes.addFlashAttribute("success", "Add new product successfully!");
         } catch (Exception e) {
