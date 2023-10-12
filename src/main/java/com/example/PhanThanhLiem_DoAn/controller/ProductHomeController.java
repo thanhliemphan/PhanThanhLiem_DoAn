@@ -29,7 +29,7 @@ public class ProductHomeController {
 
     @Autowired
     UserService userService;
-    private static final DecimalFormat df = new DecimalFormat("0.0");
+//    private static final DecimalFormat df = new DecimalFormat("0.0");
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menu(Model model){
         List<Category> categories = categoryService.findAllByActivatedTrue();
@@ -54,8 +54,8 @@ public class ProductHomeController {
         Product product = productService.getProductById(id);
 //        Long categoryId = product.getCategory().getId();
         List<Review> reviews = product.getReviews();
-        double avgRating = reviewService.getAvgRating(id);
-        model.addAttribute("avgRating",df.format(avgRating));
+        String avgRating = reviewService.getAvgRating(id);
+        model.addAttribute("avgRating",avgRating);
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews);
         model.addAttribute("review", new Review());

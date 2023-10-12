@@ -10,10 +10,8 @@ import com.example.PhanThanhLiem_DoAn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.text.DecimalFormat;
+import java.util.*;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -21,6 +19,7 @@ public class ReviewServiceImpl implements ReviewService {
     UserService userService;
     @Autowired
     ReviewRepository reviewRepository;
+    private static final DecimalFormat df = new DecimalFormat("0.0");
     @Override
     public void addNewReview(Review review, ProductDto productDto, String username) {
         User user = userService.findByUsername(username);
@@ -32,9 +31,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public double getAvgRating(Long id) {
-        double avgRating = reviewRepository.getAvgRatingByProduct(id);
-        return avgRating;
+    public String getAvgRating(Long id) {
+        if (Objects.nonNull(reviewRepository.getAvgRatingByProduct(id))){
+            return df.format(reviewRepository.getAvgRatingByProduct(id));
+        }
+        return "There is no review yet";
     }
 
     private Product transfer(ProductDto productDto) {

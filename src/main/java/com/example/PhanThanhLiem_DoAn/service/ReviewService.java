@@ -9,7 +9,7 @@ import java.util.List;
 public interface ReviewService {
     void addNewReview(Review review, ProductDto productId, String username);
 
-    double getAvgRating(Long id);
+    String getAvgRating(Long id);
 
 //    List<Review> getReviewByProduct();
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT AVG(rating)  FROM Review r inner join Product p on r.product.id = ?1 and p.id = ?1")
-    double getAvgRatingByProduct(Long id);
+    Double getAvgRatingByProduct(Long id);
 //    @Query("select r from Review r inner join Product p on p.id = r.product.id where p.id = ?1")
 //    List<Review> getProductsInCategory(Long productId);
 }

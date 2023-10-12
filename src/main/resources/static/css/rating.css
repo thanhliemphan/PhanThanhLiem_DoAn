@@ -58,20 +58,6 @@
     padding: 2rem;
     margin-bottom: 2rem;
     background-color: var(--primary);
-    color: var(--text-color);
-    display: grid;
-}
-.rating_scorecard{
-    width: 75vh;
-    display:flex;
-    align-items: center;
-    column-gap: 2rem;
-}
-.rating_average{
-    width: 30%;
-    background-color: var(--secondary);
-    padding: 1rem;
-    border-radius: 0.8rem;
     text-align: center;
 }
 .star_outer{

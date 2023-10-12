@@ -18,6 +18,7 @@ public class PaymentInfo {
     @Column(name = "payment_info_id")
     private long id;
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
     private Date paymentDate;
     private String paymentContent;
