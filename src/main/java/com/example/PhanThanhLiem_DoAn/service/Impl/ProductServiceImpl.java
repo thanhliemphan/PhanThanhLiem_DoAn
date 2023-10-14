@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(MultipartFile imageProduct, ProductDto productDto) {
         try {
-            Product productUpdate = productRepository.getById(productDto.getId());
+            Product productUpdate = productRepository.findById(productDto.getId()).orElseThrow();
             if (imageProduct == null) {
                 productUpdate.setImage(productUpdate.getImage());
             } else {
@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(Long id) {
-        Product product = productRepository.getById(id);
+        Product product = productRepository.findById(id).orElseThrow();
         product.set_activated(false);
         product.set_deleted(true);
         productRepository.save(product);
@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void enableById(Long id) {
-        Product product = productRepository.getById(id);
+        Product product = productRepository.findById(id).orElseThrow();
         product.set_activated(true);
         product.set_deleted(false);
         productRepository.save(product);

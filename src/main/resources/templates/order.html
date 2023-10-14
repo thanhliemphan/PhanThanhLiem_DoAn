@@ -63,7 +63,7 @@
                                         <p style="color: red" th:text="${'$' + order.totalPrice}"></p>
                                     </td>
                                     <td class="total-pr" style="color: black">
-                                        <span >Paid via PayPal</span>
+                                        <span th:text="${order.paymentMethod}"></span>
                                     </td>
                                     <td>
                                         <a th:href="@{/cancelorder/{id}(id=${order.id})}" class="button-cancel">Cancel</a>

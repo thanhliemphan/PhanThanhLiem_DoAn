@@ -7,6 +7,7 @@ import com.example.PhanThanhLiem_DoAn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,14 +80,14 @@ public class OrderController {
         return "order";
     }
     @RequestMapping(value = "save-order",method = RequestMethod.GET)
-    public String saveOrder(Principal principal){
+    public String saveOrder(Principal principal, @ModelAttribute("paymentMethod")String paymentMethod){
         if (principal == null){
             return "redirect:/login";
         }
         String username = principal.getName();
         User user = userService.findByUsername(username);
         ShoppingCart shoppingCart = user.getShoppingCart();
-        orderService.saveOrder(shoppingCart);
+        orderService.saveOrder(shoppingCart,"Cash");
 
         return "redirect:/customer/order";
     }

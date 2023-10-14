@@ -1,5 +1,8 @@
 package com.example.PhanThanhLiem_DoAn.service.Impl;
 
+import com.example.PhanThanhLiem_DoAn.model.Order;
+import com.example.PhanThanhLiem_DoAn.model.PaymentInfo;
+import com.example.PhanThanhLiem_DoAn.model.User;
 import com.example.PhanThanhLiem_DoAn.repository.PaymentInfoRepository;
 import com.example.PhanThanhLiem_DoAn.service.PaypalService;
 import com.paypal.api.payments.*;
@@ -12,6 +15,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,5 +71,15 @@ public class PaypalServiceImpl implements PaypalService {
         Payment executedPayment = payment.execute(apiContext, paymentExecute);
 
         return executedPayment;
+    }
+
+    @Override
+    public void save(Order newOrder, User user) {
+        PaymentInfo paymentInfo = new PaymentInfo();
+        paymentInfo.setPaymentDate(new Date());
+        paymentInfo.setUser(user);
+//        paymentInfo.setOrder(newOrder);
+        paymentInfo.setPaymentContent("Payment successfully");
+        paymentInfoRepository.save(paymentInfo);
     }
 }

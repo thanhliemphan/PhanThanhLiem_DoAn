@@ -22,7 +22,7 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private Set<CartItem> cartItems = new HashSet<>();
+    private Set<CartItem> cartItems;
 
 
     public ShoppingCart() {

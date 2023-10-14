@@ -1,6 +1,7 @@
 package com.example.PhanThanhLiem_DoAn.controller;
 
 import com.example.PhanThanhLiem_DoAn.model.Order;
+import com.example.PhanThanhLiem_DoAn.model.OrderDetail;
 import com.example.PhanThanhLiem_DoAn.model.ShoppingCart;
 import com.example.PhanThanhLiem_DoAn.model.User;
 import com.example.PhanThanhLiem_DoAn.service.OrderService;
@@ -14,10 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -70,22 +68,24 @@ public class PaypalController {
 
     @GetMapping("/success-payment")
     public String successPayment(
+            @ModelAttribute("paymentMethod")String paymentMethod,
             Principal principal,
             Model model) {
 
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
-        Order newOrder = orderService.saveOrder(shoppingCart);
+        Order newOrder = orderService.saveOrder(shoppingCart,"PayPal");
         model.addAttribute("orders", newOrder);
         orderService.sendOrderConfirmationEmail(user);
 
-        if (newOrder.getPaymentMethod().equals("PayPal")) {
-            newOrder.setPaymentMethod("Paid via PayPal");
-        } else {
-            newOrder.setPaymentMethod("Cash");
-        }
+//        if (newOrder.getPaymentMethod().equals("PayPal")) {
+//            newOrder.setPaymentMethod("Paid via PayPal");
+//        } else {
+//            newOrder.setPaymentMethod("Cash");
+//        }
         model.addAttribute("orderConfirmationMessage", "Your order has been successfully placed. An email confirmation has been sent to your email address.");
-        return "order";
+//        paypalService.save(newOrder,user);
+        return "redirect:/customer/order";
     }
 
     private static class PaymentResponse {

@@ -35,13 +35,13 @@ public class OrderServiceImpl implements OrderService {
     private JavaMailSender javaMailSender;
     @Override
     @Transactional
-    public Order saveOrder(ShoppingCart shoppingCart) {
+    public Order saveOrder(ShoppingCart shoppingCart,String paymentMethod) {
         Order order = new Order();
         order.setOrderDate(new Date());
         order.setUser(shoppingCart.getUser());
         order.setTotalPrice(shoppingCart.getTotalPrice());
         order.setAccept(false);
-        order.setPaymentMethod("Paid via PayPal");
+        order.setPaymentMethod(paymentMethod);
         order.setOrderStatus("Pending");
         order.setQuantity(shoppingCart.getTotalItem());
         List<OrderDetail> orderDetailList = new ArrayList<>();

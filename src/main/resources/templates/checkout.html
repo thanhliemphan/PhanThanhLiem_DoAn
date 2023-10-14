@@ -48,19 +48,19 @@
                             </div>
 
                             <hr class="mb-4">
-                            <hr class="mb-4">
-                            <div class="title"> <span>Payment Methods</span> </div>
-                        <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="cash" name="paymentMethod" type="radio" class="custom-control-input" required checked>
-                                <label class="custom-control-label" for="cash">Cash</label>
+                            <div class="title">
+                                <h3>Payment Methods</h3>
+                                <div class="d-block my-3">
+                                    <div class="custom-control custom-radio">
+                                        <input id="cash" name="paymentMethod" type="radio" class="custom-control-input" required checked>
+                                        <label class="custom-control-label" for="cash">Cash</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                        <label class="custom-control-label" for="paypal">PayPal</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="paypal">PayPal</label>
-                            </div>
-                        </div>
-
                         <hr class="mb-1">
                     </div>
                 </div>
@@ -132,7 +132,7 @@
     <button type="submit">Create Payment</button>
 </form>
 
-<p>Total value: <span th:text="${shoppingCart.totalPrice}"></span></p>
+<!--<p>Total value: <span th:text="${shoppingCart.totalPrice}"></span></p>-->
 
 <!-- End Feed  -->
 

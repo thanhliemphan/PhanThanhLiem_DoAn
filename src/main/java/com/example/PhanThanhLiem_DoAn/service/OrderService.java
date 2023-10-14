@@ -6,7 +6,7 @@ import com.example.PhanThanhLiem_DoAn.model.User;
 import java.util.List;
 
 public interface OrderService {
-    Order saveOrder(ShoppingCart shoppingCart);
+    Order saveOrder(ShoppingCart shoppingCart,String paymentMethod);
 
     List<Order> findALlOrders();
 

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +23,7 @@ public class PaymentInfo {
     private User user;
     private Date paymentDate;
     private String paymentContent;
-    private String cartInformation;
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "order_id")
+//    private Order order;
 }
