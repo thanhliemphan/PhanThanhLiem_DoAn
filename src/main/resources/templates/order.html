@@ -53,7 +53,7 @@
                                         <span><b th:text="${order.orderDate}"></b></span>
                                     </td>
                                     <td class="name-pr" th:if="${order.deliveryDate != null}">
-                                        <p href="#" th:text="${order.deliveryDate}">
+                                        <p th:text="${order.deliveryDate}">
 							        	</p>
                                     </td>
                                     <td class="name-pr" th:if="${order.deliveryDate == null}">
@@ -65,7 +65,10 @@
                                     <td class="total-pr" style="color: black">
                                         <span th:text="${order.paymentMethod}"></span>
                                     </td>
-                                    <td>
+                                    <td class="order-status" th:if="${order.accept} != false">
+                                        <p>Accepted</p>
+                                    </td>
+                                    <td class="order-status" th:if="${order.accept} == false">
                                         <a th:href="@{/cancelorder/{id}(id=${order.id})}" class="button-cancel">Cancel</a>
                                     </td>
                                 </tr>

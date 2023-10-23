@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where (p.description like %?1% or p.name like %?1%) and p.currentQuantity > 0")
     Page<Product> searchProducs(String keyword, Pageable pageable);
 
-    @Query("select p from Product p where (p.description like %?1% or p.name like %?1%) and p.currentQuantity > 0")
+    @Query("select p from Product p where (p.description like %?1% or p.name like %?1%) and p.currentQuantity > 0 order by p.costPrice asc")
     List<Product> searchProductsList(String keyword);
 
     @Query("select p from Product p where p.is_activated = true and p.is_deleted = false and p.currentQuantity > 0")
