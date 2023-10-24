@@ -28,13 +28,13 @@
       <!-- Begin Page Content -->
       <div class="container-fluid">
         <div>
-          <form th:action="@{search-result/0}" method="get">
+          <form th:action="@{/admin/search-result}" method="get">
             <input type="text" id="search" name="keyword" placeholder="Search products">
             <button type="submit" class="btn btn-primary">Search</button>
           </form>
         </div>
         <a th:href="@{/add-product}" class = "btn btn-primary">Add Product</a>
-        <p th:if="${size == 0}">No category</p>
+        <p th:if="${size == 0}">There is no product name "[[${keyword}]]"</p>
         <div th:if="${success}" class="text-center alert alert-success">
           <p th:text="${success}">
           </p>
@@ -77,16 +77,29 @@
           </tbody>
         </table>
         <!-- End of Main Content -->
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" th:if="${title != 'Search Products'}">
           <ul class="pagination">
             <li th:if="${currentPage != 0}" class="page-item">
-              <a th:href="@{'/admin/products/' + ${currentPage - 1}}" class="page-link" href="#">Previous</a>
+              <a th:href="@{'/admin/products?sort=' + ${sort} + '&pageNo=' + ${currentPage - 1}}" class="page-link" href="#">Previous</a>
             </li>
             <li th:each="i : ${#numbers.sequence(1,totalPages)}" th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
-              <a th:href="@{'/admin/products/' + ${i - 1}}" class="page-link" href="#"><span th:text="${i}"></span></a>
+              <a th:href="@{'/admin/products?sort=' + ${sort} + '&pageNo=' + ${i - 1}}" class="page-link" href="#"><span th:text="${i}"></span></a>
             </li>
             <li th:if="${currentPage + 1 != totalPages}" class="page-item">
-              <a th:href="@{'/admin/products/' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
+              <a th:href="@{'/admin/products?sort=' + ${sort} + '&pageNo=' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+        <nav aria-label="Page navigation example" th:if="${title == 'Search Products'}">
+          <ul class="pagination">
+            <li th:if="${currentPage != 0}" class="page-item">
+              <a th:href="@{'/admin/search-result?keyword='+${keyword}+'&sort=' + ${sort} + '&pageNo=' + ${currentPage - 1}}" class="page-link" href="#">Previous</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,totalPages)}" th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+              <a th:href="@{'/admin/search-result?keyword='+${keyword}+'&sort=' + ${sort} + '&pageNo=' + ${i - 1}}" class="page-link" href="#"><span th:text="${i}"></span></a>
+            </li>
+            <li th:if="${currentPage + 1 != totalPages}" class="page-item">
+              <a th:href="@{'/admin/search-result?keyword='+${keyword}+'&sort=' + ${sort} + '&pageNo=' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
             </li>
           </ul>
         </nav>

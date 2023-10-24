@@ -2,10 +2,12 @@ package com.example.PhanThanhLiem_DoAn.controller.adminController;
 
 import com.example.PhanThanhLiem_DoAn.dto.ProductDto;
 import com.example.PhanThanhLiem_DoAn.model.Category;
+import com.example.PhanThanhLiem_DoAn.model.Product;
 import com.example.PhanThanhLiem_DoAn.service.CategoryService;
 import com.example.PhanThanhLiem_DoAn.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,45 +30,54 @@ public class ProductController {
         return "admin/index";
     }
 
-    @RequestMapping(value = "admin/products", method = RequestMethod.GET)
-    public String product(Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/login";
-        }
-        List<ProductDto> productDtoList = productService.findAll();
-        model.addAttribute("products", productDtoList);
-        model.addAttribute("size", productDtoList.size());
-        return "admin/products";
-    }
-    @RequestMapping(value = "admin/products/{pageNo}",method = RequestMethod.GET)
-    public String productsPage(@PathVariable("pageNo") int pageNo, Model model, Principal principal){
+//    @RequestMapping(value = "admin/products", method = RequestMethod.GET)
+//    public String product(Model model, Principal principal) {
+//        if (principal == null) {
+//            return "redirect:/login";
+//        }
+//        List<ProductDto> productDtoList = productService.findAll();
+//        model.addAttribute("products", productDtoList);
+//        model.addAttribute("size", productDtoList.size());
+//        return "admin/products";
+//    }
+    @RequestMapping(value = "admin/products",method = RequestMethod.GET)
+    public String productsPage(@RequestParam(value = "pageNo",required = false) Integer pageNo,
+                               @RequestParam(value = "sort",required = false) String sort,
+                               Model model, Principal principal){
         if (principal == null){
             return "redirect:/login";
         }
+        if (sort == null) sort = "DESC";
+        if (pageNo == null) pageNo=0;
         Page<ProductDto> products = productService.pageProducts(pageNo,5,"DESC");
         model.addAttribute("title","Manage Product");
         model.addAttribute("size",products.getSize());
         model.addAttribute("totalPages",products.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("products",products);
+        model.addAttribute("sort",sort);
         return "admin/products";
     }
-    @RequestMapping(value = "admin/products/search-result/{pageNo}",method = RequestMethod.GET)
-    public String searchProducts(@PathVariable("pageNo") int pageNo,
-                                 @RequestParam("keyword") String keyword,
+    @RequestMapping(value = "admin/search-result",method = RequestMethod.GET)
+    public String searchProducts(@RequestParam(value = "pageNo",required = false) Integer pageNo,
+                                 @Param("keyword") String keyword,
                                  @RequestParam(value = "sort",required = false) String sort,
                                  Model model, Principal principal){
         if (principal == null){
             return "redirect:/login";
         }
+        if (sort == null) sort = "DESC";
+        if (pageNo == null) pageNo=0;
         Page<ProductDto> products = productService.searchProducts(pageNo,keyword,sort);
         model.addAttribute("title", "Search Products");
         model.addAttribute("products", products);
+//        model.addAttribute("product", new Product());
         model.addAttribute("size", products.getSize());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", products.getTotalPages());
-        model.addAttribute("keyword","?keyword="+keyword);
-        return "admin/result-products";
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("sort",sort);
+        return "admin/products";
     }
     @RequestMapping(value = "/add-product", method = RequestMethod.GET)
     public String addProduct(Model model, Principal principal){
@@ -131,10 +142,10 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") Long id,RedirectAttributes redirectAttributes){
         try {
             productService.deleteById(id);
-            redirectAttributes.addFlashAttribute("success", "Delete successfully");
+            redirectAttributes.addFlashAttribute("success", "Disable successfully");
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "Faile to deleted");
+            redirectAttributes.addFlashAttribute("error", "Faile to disable");
         }
         return "redirect:/admin/products/0";
     }
