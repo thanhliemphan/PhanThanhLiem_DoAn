@@ -56,7 +56,7 @@
             <a th:if="${category.is_deleted()} == true" th:href="@{/enable-category(id=${category.id})}"
                class="btn btn-primary">Enable</a>
             <a th:if="${category.is_deleted()} == false" th:href="@{/delete-category(id=${category.id})}"
-               class=" btn btn-danger">Delete</a>
+               class=" btn btn-danger">Disable</a>
           </td>
         </tr>
         </tbody>

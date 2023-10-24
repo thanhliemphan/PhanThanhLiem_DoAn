@@ -6,10 +6,7 @@ import com.example.PhanThanhLiem_DoAn.repository.ProductRepository;
 import com.example.PhanThanhLiem_DoAn.service.ProductService;
 import com.example.PhanThanhLiem_DoAn.utils.ImageUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -127,31 +124,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDto> pageProducts(int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo,5);
-        List<ProductDto> products = transfer(productRepository.findAll());
-        Page<ProductDto> productPages = toPage(products,pageable);
+    public Page<ProductDto> pageProducts(int pageNo,int pageSize,String sort) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        if (sort.equals("DESC")){
+            List<ProductDto> products = transfer(productRepository.findAll(Sort.by(Sort.Direction.DESC, "costPrice")));
+            Page<ProductDto> productPages = toPage(products,pageable);
+            return productPages;
+        }
+            List<ProductDto> products = transfer(productRepository.findAll(Sort.by(Sort.Direction.ASC, "costPrice")));
+            Page<ProductDto> productPages = toPage(products,pageable);
         return productPages;
     }
-
-    @Override
-    public Page<ProductDto> searchProducts(int pageNo,String keyword) {
-        Pageable pageable = PageRequest.of(pageNo,5);
-        List<ProductDto> productDtos = transfer(productRepository.searchProductsList(keyword));
-        Page<ProductDto> products = toPage(productDtos, pageable);
-        return products;
-    }
-    @Override
-    public List<ProductDto> randomProduct() {
-        return transfer(productRepository.randomProduct());
-    }
-
-    @Override
-    public List<ProductDto> listViewProducts() {
-        return transfer(productRepository.listViewProduct());
-    }
-
-
     private Page toPage(List<ProductDto> list,Pageable pageable){
         if (pageable.getOffset() >= list.size()){
             return Page.empty();
@@ -162,6 +145,29 @@ public class ProductServiceImpl implements ProductService {
         List subList = list.subList(startIndex,endIndex);
         return new PageImpl(subList,pageable, list.size());
     }
+    @Override
+    public Page<ProductDto> searchProducts(int pageNo,String keyword,String sort) {
+        Pageable pageable = PageRequest.of(pageNo,8);
+        if (sort.equalsIgnoreCase("DESC")){
+            List<ProductDto> productDtos = transfer(productRepository.searchProductsListDesc(keyword));
+            Page<ProductDto> products = toPage(productDtos, pageable);
+            return products;
+        }
+        List<ProductDto> productDtos = transfer(productRepository.searchProductsListAsc(keyword));
+        Page<ProductDto> products = toPage(productDtos, pageable);
+        return products;
+    }
+
+//    @Override
+//    public List<ProductDto> randomProduct() {
+//        return transfer(productRepository.randomProduct());
+//    }
+
+    @Override
+    public List<ProductDto> listViewProducts() {
+        return transfer(productRepository.listViewProduct());
+    }
+
     private List<ProductDto> transfer(List<Product> products){
         List<ProductDto> productDtoList = new ArrayList<>();
         for (Product product: products){
@@ -208,19 +214,19 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductsInCategory(categoryId);
     }
 
-    @Override
-    public List<ProductDto> filterHighPrice() {
-        return transfer(productRepository.filterHighPrice());
-    }
-
-    @Override
-    public List<ProductDto> filterLowPrice() {
-        return transfer(productRepository.filterLowPrice());
-    }
-    @Override
-    public List<ProductDto> searchProducts(String keyword) {
-        return transfer(productRepository.searchProductsList(keyword));
-    }
+//    @Override
+//    public List<ProductDto> filterHighPrice() {
+//        return transfer(productRepository.filterHighPrice());
+//    }
+//
+//    @Override
+//    public List<ProductDto> filterLowPrice() {
+//        return transfer(productRepository.filterLowPrice());
+//    }
+//    @Override
+//    public List<ProductDto> searchProducts(String keyword) {
+//        return transfer(productRepository.searchProductsListDesc(keyword));
+//    }
 
     @Override
     public void saveProduct(Product product) {

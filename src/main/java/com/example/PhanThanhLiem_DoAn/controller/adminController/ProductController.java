@@ -43,7 +43,7 @@ public class ProductController {
         if (principal == null){
             return "redirect:/login";
         }
-        Page<ProductDto> products = productService.pageProducts(pageNo);
+        Page<ProductDto> products = productService.pageProducts(pageNo,5,"DESC");
         model.addAttribute("title","Manage Product");
         model.addAttribute("size",products.getSize());
         model.addAttribute("totalPages",products.getTotalPages());
@@ -54,11 +54,12 @@ public class ProductController {
     @RequestMapping(value = "admin/products/search-result/{pageNo}",method = RequestMethod.GET)
     public String searchProducts(@PathVariable("pageNo") int pageNo,
                                  @RequestParam("keyword") String keyword,
+                                 @RequestParam(value = "sort",required = false) String sort,
                                  Model model, Principal principal){
         if (principal == null){
             return "redirect:/login";
         }
-        Page<ProductDto> products = productService.searchProducts(pageNo,keyword);
+        Page<ProductDto> products = productService.searchProducts(pageNo,keyword,sort);
         model.addAttribute("title", "Search Products");
         model.addAttribute("products", products);
         model.addAttribute("size", products.getSize());

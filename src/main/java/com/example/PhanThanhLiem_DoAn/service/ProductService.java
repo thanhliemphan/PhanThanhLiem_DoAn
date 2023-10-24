@@ -16,22 +16,22 @@ public interface ProductService {
     void deleteById(Long id);
     void enableById(Long id);
     ProductDto getById(Long id);
-    Page<ProductDto> pageProducts(int pageNo);
+    Page<ProductDto> pageProducts(int pageNo,int pageSize,String sort);
 
-    Page<ProductDto> searchProducts(int pageNo,String keyword);
+    Page<ProductDto> searchProducts(int pageNo,String keyword,String sort);
     /* Customer */
     List<Product> getAllProducts();
     List<Product> listViewProduct();
     Product getProductById(Long id);
     List<Product> getRelatedProducts(Long categoryId);
     List<Product> getProductsInCategory(Long categoryId);
-    List<ProductDto> filterHighPrice();
-    List<ProductDto> filterLowPrice();
-
-    List<ProductDto> randomProduct();
+//    List<ProductDto> filterHighPrice();
+//    List<ProductDto> filterLowPrice();
+//
+//    List<ProductDto> randomProduct();
 
     List<ProductDto> listViewProducts();
-    List<ProductDto> searchProducts(String keyword);
+//    List<ProductDto> searchProducts(String keyword);
 
     void saveProduct(Product product);
 }

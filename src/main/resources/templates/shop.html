@@ -37,10 +37,20 @@
                         <div class="col-12 col-sm-8 text-center text-sm-left">
                             <div class="toolbar-sorter-right">
                                 <span>Sort by </span>
-                                <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD"  th:fragment="nav-product" onchange="location = this.value;">
+                                <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD"
+                                        th:fragment="nav-product" onchange="location = this.value;"
+                                        th:if="${title != 'Search Products'}">
                                     <option data-display="Select">Nothing</option>
-                                    <option th:value="@{/high-price}">High Price → Low Price</option>
-                                    <option value="http://localhost:8080/low-price">Low Price → High Price</option>
+                                    <option th:value="@{?sort=DESC}">High Price → Low Price</option>
+                                    <option th:value="@{?sort=ASC}">Low Price → High Price</option>
+                                    <option value="4">Best Selling</option>
+                                </select>
+                                <select  class="selectpicker show-tick form-control" data-placeholder="$ USD"
+                                        th:fragment="nav-product" onchange="location = this.value;"
+                                        th:if="${title == 'Search Products'}">
+                                    <option data-display="Select">Nothing</option>
+                                    <option th:value="@{'/search-product?keyword='+${keyword}+'&sort=DESC'}">High Price → Low Price</option>
+                                    <option th:value="@{'/search-product?keyword='+${keyword}+'&sort=ASC'}">Low Price → High Price</option>
                                     <option value="4">Best Selling</option>
                                 </select>
                             </div>
@@ -120,6 +130,32 @@
                                 </div>
                             </div>
                         </div>
+                        <nav aria-label="Page navigation example" th:if="${title != 'Search Products'}">
+                            <ul class="pagination">
+                                <li th:if="${currentPage != 0}" class="page-item">
+                                    <a th:href="@{'/products?sort=' + ${sort} + '&pageNo=' + ${currentPage - 1}}" class="page-link" href="#">Previous</a>
+                                </li>
+                                <li th:each="i : ${#numbers.sequence(1,totalPages)}" th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+                                    <a th:href="@{'/products?sort=' + ${sort} + '&pageNo=' + ${i - 1}}" class="page-link" href="#"><span th:text="${i}"></span></a>
+                                </li>
+                                <li th:if="${currentPage + 1 != totalPages}" class="page-item">
+                                    <a th:href="@{'/products?sort=' + ${sort} + '&pageNo=' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <nav aria-label="Page navigation example" th:if="${title == 'Search Products'}">
+                            <ul class="pagination">
+                                <li th:if="${currentPage != 0}" class="page-item">
+                                    <a th:href="@{'/search-product?keyword='+${keyword}+'&sort=' + ${sort} + '&pageNo=' + ${currentPage - 1}}" class="page-link" href="#">Previous</a>
+                                </li>
+                                <li th:each="i : ${#numbers.sequence(1,totalPages)}" th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+                                    <a th:href="@{'/search-product?keyword='+${keyword}+'&sort=' + ${sort} + '&pageNo=' + ${i - 1}}" class="page-link" href="#"><span th:text="${i}"></span></a>
+                                </li>
+                                <li th:if="${currentPage + 1 != totalPages}" class="page-item">
+                                    <a th:href="@{'/search-product?keyword='+${keyword}+'&sort=' + ${sort} + '&pageNo=' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
