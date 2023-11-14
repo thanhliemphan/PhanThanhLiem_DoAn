@@ -49,8 +49,4 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private List<Role> roles;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<PaymentInfo> paymentHistories;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Review> reviews;
 }

@@ -39,7 +39,7 @@
                 [[${#authentication.principal.username}]]
             </a>
             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} and ${#authorization.expression('isAuthenticated()')}" th:href="@{/admin/index}">Admin Home</a>
+                <a class="dropdown-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} and ${#authorization.expression('isAuthenticated()')}" th:href="@{/admin/index}">Admin Page</a>
                 <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
             <!-- Kiểm tra nếu người dùng chưa đăng nhập -->

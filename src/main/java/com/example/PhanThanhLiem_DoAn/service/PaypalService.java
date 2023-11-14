@@ -1,7 +1,5 @@
 package com.example.PhanThanhLiem_DoAn.service;
 
-import com.example.PhanThanhLiem_DoAn.model.Order;
-import com.example.PhanThanhLiem_DoAn.model.User;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -12,5 +10,5 @@ public interface PaypalService {
 
     Payment executePayment(String paymentId, String payerId) throws PayPalRESTException, ParseException;
 
-    void save(Order newOrder, User user);
+//    void save(Order newOrder, User user);
 }

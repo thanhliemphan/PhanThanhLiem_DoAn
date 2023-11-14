@@ -24,8 +24,8 @@ public class Review {
     private double rating;
     @Column(name = "created_time", updatable = false)
     private Date createdTime;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id",referencedColumnName = "product_id")
     private Product product;
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "product_review",

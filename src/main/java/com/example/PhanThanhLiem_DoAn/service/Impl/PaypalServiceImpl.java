@@ -1,9 +1,5 @@
 package com.example.PhanThanhLiem_DoAn.service.Impl;
 
-import com.example.PhanThanhLiem_DoAn.model.Order;
-import com.example.PhanThanhLiem_DoAn.model.PaymentInfo;
-import com.example.PhanThanhLiem_DoAn.model.User;
-import com.example.PhanThanhLiem_DoAn.repository.PaymentInfoRepository;
 import com.example.PhanThanhLiem_DoAn.service.PaypalService;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -22,8 +18,6 @@ import java.util.List;
 public class PaypalServiceImpl implements PaypalService {
     @Autowired
     private APIContext apiContext;
-    @Autowired
-    PaymentInfoRepository paymentInfoRepository;
 
     @Override
     public Payment createPayment(
@@ -71,15 +65,5 @@ public class PaypalServiceImpl implements PaypalService {
         Payment executedPayment = payment.execute(apiContext, paymentExecute);
 
         return executedPayment;
-    }
-
-    @Override
-    public void save(Order newOrder, User user) {
-        PaymentInfo paymentInfo = new PaymentInfo();
-        paymentInfo.setPaymentDate(new Date());
-        paymentInfo.setUser(user);
-//        paymentInfo.setOrder(newOrder);
-        paymentInfo.setPaymentContent("Payment successfully");
-        paymentInfoRepository.save(paymentInfo);
     }
 }

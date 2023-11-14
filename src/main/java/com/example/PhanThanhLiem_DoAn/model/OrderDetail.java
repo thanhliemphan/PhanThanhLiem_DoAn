@@ -20,7 +20,4 @@ public class OrderDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
-//    @ManyToOne
-//    @JoinColumn(name = "payment_info_id")
-//    private PaymentInfo paymentInfo;
 }
