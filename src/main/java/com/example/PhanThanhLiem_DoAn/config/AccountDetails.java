@@ -1,5 +1,7 @@
-package com.example.PhanThanhLiem_DoAn.model;
+package com.example.PhanThanhLiem_DoAn.config;
 
+import com.example.PhanThanhLiem_DoAn.model.Role;
+import com.example.PhanThanhLiem_DoAn.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
