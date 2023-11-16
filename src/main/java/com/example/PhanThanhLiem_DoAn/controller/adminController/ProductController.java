@@ -49,7 +49,7 @@ public class ProductController {
         }
         if (sort == null) sort = "DESC";
         if (pageNo == null) pageNo=0;
-        Page<ProductDto> products = productService.pageProducts(pageNo,5,"DESC");
+        Page<ProductDto> products = productService.pageAllProducts(pageNo,5);
         model.addAttribute("title","Manage Product");
         model.addAttribute("size",products.getSize());
         model.addAttribute("totalPages",products.getTotalPages());
@@ -71,7 +71,6 @@ public class ProductController {
         Page<ProductDto> products = productService.searchProducts(pageNo,keyword,sort);
         model.addAttribute("title", "Search Products");
         model.addAttribute("products", products);
-//        model.addAttribute("product", new Product());
         model.addAttribute("size", products.getSize());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", products.getTotalPages());
@@ -102,7 +101,7 @@ public class ProductController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to add new product!");
         }
-        return "redirect:/admin/products/0";
+        return "redirect:/admin/products";
     }
     @RequestMapping(value = "/update-product/{id}", method = RequestMethod.GET)
     public String updateProduct(@PathVariable("id") Long id, Model model, Principal principal) {
@@ -125,7 +124,7 @@ public class ProductController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error server, please try again!");
         }
-        return "redirect:/admin/products/0";
+        return "redirect:/admin/products";
     }
     @RequestMapping(value = "/enable-product/{id}",method = RequestMethod.GET)
     public String enableProduct(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
@@ -136,7 +135,7 @@ public class ProductController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to enabled");
         }
-        return "redirect:/admin/products/0";
+        return "redirect:/admin/products";
     }
     @RequestMapping(value = "/delete-product/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable("id") Long id,RedirectAttributes redirectAttributes){
@@ -147,6 +146,6 @@ public class ProductController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Faile to disable");
         }
-        return "redirect:/admin/products/0";
+        return "redirect:/admin/products";
     }
 }

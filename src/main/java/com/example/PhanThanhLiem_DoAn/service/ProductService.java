@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDto> findAll();
+//    List<ProductDto> findAll();
     List<ProductDto> products();
     List<ProductDto> allProduct();
     Product save(MultipartFile imageProduct, ProductDto productDto);
@@ -19,19 +19,11 @@ public interface ProductService {
     Page<ProductDto> pageProducts(int pageNo,int pageSize,String sort);
 
     Page<ProductDto> searchProducts(int pageNo,String keyword,String sort);
-    /* Customer */
-    List<Product> getAllProducts();
-    List<Product> listViewProduct();
-    Product getProductById(Long id);
-    List<Product> getRelatedProducts(Long categoryId);
-    List<Product> getProductsInCategory(Long categoryId);
-//    List<ProductDto> filterHighPrice();
-//    List<ProductDto> filterLowPrice();
-//
-//    List<ProductDto> randomProduct();
 
-    List<ProductDto> listViewProducts();
-//    List<ProductDto> searchProducts(String keyword);
+    Page<ProductDto> pageAllProducts(int pageNo, int pageSize);
+
+    Product getProductById(Long id);
+    List<Product> getProductsInCategory(Long categoryId);
 
     void saveProduct(Product product);
 }

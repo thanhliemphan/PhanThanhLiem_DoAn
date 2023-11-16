@@ -41,9 +41,7 @@ public class ProductHomeController {
         if (pageNo == null) pageNo=0;
         if (sort == null) sort = "DESC";
         List<CategoryDto> categoryDtoList = categoryService.getCategoryAndProduct();
-        List<Product> listViewProduct = productService.listViewProduct();
         model.addAttribute("categories", categoryDtoList);
-        model.addAttribute("viewProduct", listViewProduct);
         model.addAttribute("product", new Product());
         Page<ProductDto> products = productService.pageProducts(pageNo,8,sort);
         model.addAttribute("title","Manage Product");
@@ -57,7 +55,6 @@ public class ProductHomeController {
     @RequestMapping(value = "/find-product/{id}", method = RequestMethod.GET)
     public String findProduct(@PathVariable("id") Long id, Model model){
         Product product = productService.getProductById(id);
-//        Long categoryId = product.getCategory().getId();
         List<Review> reviews = product.getReviews();
         String avgRating = reviewService.getAvgRating(id);
         model.addAttribute("avgRating",avgRating);
@@ -76,26 +73,6 @@ public class ProductHomeController {
         model.addAttribute("products", products);
         return "products-in-category";
     }
-//    @RequestMapping(value = "high-price", method = RequestMethod.GET)
-//    public String filterHighPrice(Model model){
-//        List<CategoryDto> categoryDtoList = categoryService.getCategoryAndProduct();
-//        List<ProductDto> products = productService.filterHighPrice();
-//        List<ProductDto> listView = productService.listViewProducts();
-//        model.addAttribute("productViews", listView);
-//        model.addAttribute("categories", categoryDtoList);
-//        model.addAttribute("products", products);
-//        return "shop";
-//    }
-//    @RequestMapping(value = "low-price", method = RequestMethod.GET)
-//    public String filterLowPrice(Model model){
-//        List<ProductDto> listView = productService.listViewProducts();
-//        List<CategoryDto> categoryDtoList = categoryService.getCategoryAndProduct();
-//        List<ProductDto> products = productService.filterLowPrice();
-//        model.addAttribute("productViews", listView);
-//        model.addAttribute("categories", categoryDtoList);
-//        model.addAttribute("products", products);
-//        return "shop";
-//    }
     @GetMapping(value = "/search-product")
     public String searchProducts(@Param("keyword") String keyword,
                                  @RequestParam(value = "pageNo",required = false) Integer pageNo,
@@ -104,13 +81,11 @@ public class ProductHomeController {
         if (sort == null) sort = "DESC";
         if (pageNo == null) pageNo=0;
         List<CategoryDto> categoryDtoList = categoryService.getCategoryAndProduct();
-        List<Product> listViewProduct = productService.listViewProduct();
         Page<ProductDto> products = productService.searchProducts(pageNo,keyword,sort);
         model.addAttribute("title", "Search Products");
         model.addAttribute("page", "Result Search");
         model.addAttribute("products", products);
         model.addAttribute("categories", categoryDtoList);
-        model.addAttribute("viewProduct", listViewProduct);
         model.addAttribute("product", new Product());
         model.addAttribute("size",products.getSize());
         model.addAttribute("totalPages",products.getTotalPages());

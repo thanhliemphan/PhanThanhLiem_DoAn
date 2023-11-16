@@ -115,7 +115,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void sendOrderConfirmationEmail(User user) {
+//        String senderName = "Your company name";
         SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("thanhliemphan97@gmail.com");
         message.setTo(user.getUsername());
         message.setSubject("Order Confirmation");
         message.setText("Thank you for your order!" +

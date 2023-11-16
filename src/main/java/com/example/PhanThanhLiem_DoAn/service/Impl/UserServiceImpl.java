@@ -1,6 +1,8 @@
 package com.example.PhanThanhLiem_DoAn.service.Impl;
 
+import com.example.PhanThanhLiem_DoAn.dto.ProductDto;
 import com.example.PhanThanhLiem_DoAn.dto.UserDto;
+import com.example.PhanThanhLiem_DoAn.model.Product;
 import com.example.PhanThanhLiem_DoAn.model.Role;
 import com.example.PhanThanhLiem_DoAn.model.User;
 import com.example.PhanThanhLiem_DoAn.repository.RoleRepository;
@@ -10,6 +12,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -70,7 +74,7 @@ public class UserServiceImpl implements UserService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("truongta.mt34@gmail.com", senderName);
+        helper.setFrom("thanhliemphan97@gmail.com", senderName);
         helper.setTo(user.getUsername());
         helper.setSubject(subject);
 
@@ -123,5 +127,42 @@ public class UserServiceImpl implements UserService {
         userSave.setCountry(user.getCountry());
         userSave.setNumber_phone(user.getNumber_phone());
         return userRepository.save(userSave);
+    }
+    public Page<User> searchCustomer(int pageNo,String keyword) {
+        Pageable pageable = PageRequest.of(pageNo,8);
+        List<User> users = userRepository.searchCustomerByKeyword(keyword);
+        Page<User> userPage = toPage(users, pageable);
+        return userPage;
+    }
+    public Page<User> pageProducts(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        List<User> products = userRepository.findAll();
+        Page<User> productPages = toPage(products,pageable);
+        return productPages;
+    }
+
+    private Page toPage(List<User> list,Pageable pageable){
+        if (pageable.getOffset() >= list.size()){
+            return Page.empty();
+        }
+        int startIndex = (int) pageable.getOffset();
+        int endIndex = (pageable.getOffset() + pageable.getPageSize() > list.size()) ?
+                list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        List subList = list.subList(startIndex,endIndex);
+        return new PageImpl(subList,pageable, list.size());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void enableById(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 }

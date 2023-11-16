@@ -21,12 +21,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ImageUpload imageUpload;
     @Override
-    public List<ProductDto> findAll() {
-        List<Product> products = productRepository.findAll();
-        List<ProductDto> productDtoList =transfer(products);
-        return productDtoList;
-    }
-    @Override
     public List<ProductDto> products() {
         return transfer(productRepository.getAllProduct());
     }
@@ -127,11 +121,11 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDto> pageProducts(int pageNo,int pageSize,String sort) {
         Pageable pageable = PageRequest.of(pageNo,pageSize);
         if (sort.equals("DESC")){
-            List<ProductDto> products = transfer(productRepository.findAll(Sort.by(Sort.Direction.DESC, "costPrice")));
+            List<ProductDto> products = transfer(productRepository.getAllProductOrderByDesc());
             Page<ProductDto> productPages = toPage(products,pageable);
             return productPages;
         }
-            List<ProductDto> products = transfer(productRepository.findAll(Sort.by(Sort.Direction.ASC, "costPrice")));
+            List<ProductDto> products = transfer(productRepository.getAllProductOrderByDAsc());
             Page<ProductDto> productPages = toPage(products,pageable);
         return productPages;
     }
@@ -157,15 +151,12 @@ public class ProductServiceImpl implements ProductService {
         Page<ProductDto> products = toPage(productDtos, pageable);
         return products;
     }
-
-//    @Override
-//    public List<ProductDto> randomProduct() {
-//        return transfer(productRepository.randomProduct());
-//    }
-
     @Override
-    public List<ProductDto> listViewProducts() {
-        return transfer(productRepository.listViewProduct());
+    public Page<ProductDto> pageAllProducts(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,8);
+        List<ProductDto> productDtos = transfer(productRepository.findAll());
+        Page<ProductDto> products = toPage(productDtos, pageable);
+        return products;
     }
 
     private List<ProductDto> transfer(List<Product> products){
@@ -187,17 +178,6 @@ public class ProductServiceImpl implements ProductService {
         }
         return productDtoList;
     }
-    /* Customer */
-    @Override
-    public List<Product> getAllProducts() {
-        return productRepository.getAllProduct();
-    }
-
-    @Override
-    public List<Product> listViewProduct() {
-        return productRepository.listViewProduct();
-    }
-
 
     @Override
     public Product getProductById(Long id) {
@@ -205,28 +185,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getRelatedProducts(Long categoryId) {
-        return productRepository.getRelatedProducts(categoryId);
-    }
-
-    @Override
     public List<Product> getProductsInCategory(Long categoryId) {
         return productRepository.getProductsInCategory(categoryId);
     }
 
-//    @Override
-//    public List<ProductDto> filterHighPrice() {
-//        return transfer(productRepository.filterHighPrice());
-//    }
-//
-//    @Override
-//    public List<ProductDto> filterLowPrice() {
-//        return transfer(productRepository.filterLowPrice());
-//    }
-//    @Override
-//    public List<ProductDto> searchProducts(String keyword) {
-//        return transfer(productRepository.searchProductsListDesc(keyword));
-//    }
 
     @Override
     public void saveProduct(Product product) {

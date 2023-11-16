@@ -24,15 +24,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.is_activated = true and p.is_deleted = false and p.currentQuantity > 0")
     List<Product> getAllProduct();
-    @Query(value = "select p.product_id, p.name, p.description, p.current_quantity, p.cost_price, p.category_id, p.sale_price, p.image, p.is_activated, p.is_deleted from products p where p.is_deleted = false and p.is_activated = true and p.current_quantity > 0 limit 4", nativeQuery = true)
-    List<Product> listViewProduct();
+    @Query(value = "select p.product_id, p.name, p.description, p.current_quantity, p.cost_price, p.category_id, p.sale_price, p.image, p.is_activated, p.is_deleted from products p where p.is_deleted = false and p.is_activated = true and p.current_quantity > 0 order by p.cost_price desc", nativeQuery = true)
+    List<Product> getAllProductOrderByDesc();
+    @Query(value = "select p.product_id, p.name, p.description, p.current_quantity, p.cost_price, p.category_id, p.sale_price, p.image, p.is_activated, p.is_deleted from products p where p.is_deleted = false and p.is_activated = true and p.current_quantity > 0 order by p.cost_price asc", nativeQuery = true)
+    List<Product> getAllProductOrderByDAsc();
 
     @Query(value = "select p from Product p inner join Category c on c.id = ?1 and p.category.id = ?1 where p.is_activated = true and p.is_deleted = false and p.currentQuantity > 0")
     List<Product> getRelatedProducts(Long categoryId);
-//    @Query(value = "select " +
-//            "p.product_id, p.name, p.description, p.current_quantity, p.cost_price, p.category_id, p.sale_price, p.image, p.is_activated, p.is_deleted " +
-//            "from products p where p.is_activated = true and p.is_deleted = false and p.current_quantity > 0 order by rand() limit 16", nativeQuery = true)
-//    List<Product> randomProduct();
 
     @Query("select p from Product p inner join Category c on c.id = p.category.id where c.id = ?1 and p.is_deleted = false and p.is_activated = true and p.currentQuantity > 0")
     List<Product> getProductsInCategory(Long categoryId);
